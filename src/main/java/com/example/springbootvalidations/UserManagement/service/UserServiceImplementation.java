@@ -1,5 +1,6 @@
 package com.example.springbootvalidations.UserManagement.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -14,10 +15,7 @@ public class UserServiceImplementation implements UserService {
 		super();
 		this.userRepo = userRepo;
 	}
-
-
 	private UserRepository userRepo;
-	
 	
 	@Override
 	public User createUser(User user) {
@@ -25,12 +23,17 @@ public class UserServiceImplementation implements UserService {
 		return userRepo.save(user);
 	}
 
-
 	@Override
 	public boolean loginUser(String username, String password) {
 		// TODO Auto-generated method stub
 		Optional<User> user = userRepo.findByUsernameAndPassword(username, password);
         return user.isPresent();
+	}
+
+	@Override
+	public List<User> getUsersAboveAge(int age) {
+		// TODO Auto-generated method stub
+		return userRepo.findByAgeGreaterThan(age);
 	}
 
 }
